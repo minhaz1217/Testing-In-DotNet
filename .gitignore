@@ -2,3 +2,4 @@
 packages/**/*
 !packages/repositories.config
 obj
+bin
