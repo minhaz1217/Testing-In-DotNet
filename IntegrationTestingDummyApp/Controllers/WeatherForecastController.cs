@@ -1,3 +1,4 @@
+using IntegrationTestingDummyApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegrationTestingDummyApp.Controllers
@@ -12,10 +13,16 @@ namespace IntegrationTestingDummyApp.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IntegrationTestingDummyAppService _integrationTestingDummyAppService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger,
+            IntegrationTestingDummyAppService integrationTestingDummyAppService
+            )
         {
             _logger = logger;
+            _integrationTestingDummyAppService = integrationTestingDummyAppService; ;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -28,6 +35,13 @@ namespace IntegrationTestingDummyApp.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+
+        [HttpGet("get-value")]
+        public IActionResult GetValue()
+        {
+            return Ok(_integrationTestingDummyAppService.GetValue());
         }
     }
 }

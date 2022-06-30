@@ -1,8 +1,15 @@
+using IntegrationTestingDummyApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddSingleton<IDummyService, DummyService1>();
+builder.Services.AddSingleton<IntegrationTestingDummyAppService, IntegrationTestingDummyAppService>();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
