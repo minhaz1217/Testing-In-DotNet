@@ -32,6 +32,20 @@ namespace IntegrationTestingDummyApp.Tests
             Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType?.ToString());
         }
 
+        [Theory]
+        [InlineData("/WeatherForecast/get-value")]
+        public async Task Get_EndpointsReturnIntValue(string url)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
+
+            // Assert
+            response.EnsureSuccessStatusCode(); // Status Code 200-299
+            Assert.Equal("100", await response.Content.ReadAsStringAsync());
+        }
 
         // Build the client inside the test run.
         [Fact]
